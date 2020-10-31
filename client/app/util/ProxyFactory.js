@@ -17,7 +17,7 @@ class ProxyFactory {
                 set(target, prop, value, receiver) {
                     const updated = Reflect.set(target, prop, value);
                     if(props.includes(prop)) armadilha(target);
-                    return updated;
+                        return updated;
                 }
             }
         );

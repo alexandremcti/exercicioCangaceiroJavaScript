@@ -1,7 +1,7 @@
-const api = require('../api');
+var api = require('../api');
 
 module.exports = function(app){
-    app.route('/negociacoees/semana')
+    app.route('/negociacoes/semana')
         .get(api.listaSemana);
 
     app.route('/negociacoes/anterior')

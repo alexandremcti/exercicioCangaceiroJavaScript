@@ -26,8 +26,9 @@
             <input type="number" id="valor" class="form-control" required min="0.01" step="0.01" value="0.0"/>
         </div>
 
-        <button class="btn btn-primary" type="submit">Incluir</button>
-        <button class="btn btn-primary" type="button" id="botao-apaga">apagar</button>
+        <button class="btn btn-primary text-center" type="submit">Incluir</button>
+        <button class="btn btn-primary text-center" type="button" id="botao-apaga">apagar</button>
+        <button class="btn btn-primary text-center" type="button" id="botao-importa">importar</button>
     </form>
     <br>
     <div id="negociacoes"></div>
@@ -36,11 +37,13 @@
     <script src="app/ui/views/NegociacoesView.js"></script>
     <script src="app/domain/negociacao/Negociacao.js"></script>
     <script src="app/domain/negociacao/Negociacoes.js"></script>
+    <script src="app/domain/negociacao/NegociacaoService.js"></script>
     <script src="app/ui/converters/DateConverter.js"></script>
     <script src="app/ui/models/Mensagem.js"></script>
     <script src="app/ui/views/MensagemView.js"></script>
     <script src="app/util/ProxyFactory.js"></script>
     <script src="app/util/Bind.js"></script>
+
     <script src="app/controllers/NegociacaoController.js"></script>
     <script src="app/util/AplicationException.js"></script>
     <script src="app/ui/converters/DataInvalidaException.js"></script>
