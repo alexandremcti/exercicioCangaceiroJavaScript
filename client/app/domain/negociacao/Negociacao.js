@@ -6,19 +6,23 @@ class Negociacao {
         Object.freeze(this);
     }
 
-    get data(){
+    get data() {
         return  this._data;
     }
 
-    get quantidade(){
+    get quantidade() {
         return this._quantidade;
     }
 
-    get valor(){
+    get valor() {
         return this._valor;
     }
 
     get volume() {
         return this._quantidade * this._valor;
+    }
+
+    equals(Negociacao) {
+        return JSON.stringify(this) == JSON.stringify(Negociacao);
     }
 }

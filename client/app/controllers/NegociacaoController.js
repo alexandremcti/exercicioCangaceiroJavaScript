@@ -2,8 +2,6 @@ class NegociacaoController {
 
     constructor(){
         const $ = document.querySelector.bind(document);
-        
-
         this._inputData = $('#data');
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
@@ -14,7 +12,6 @@ class NegociacaoController {
 
     adiciona(event) {
         try {
-            
             event.preventDefault();
             this._negociacoes.adiciona(this._criaNegociacao());
             this._mensagem.texto = 'Negociação adicionada com sucesso';
@@ -22,7 +19,6 @@ class NegociacaoController {
         } catch (error) {
             console.log(error);
             console.log(error.stack);
-
             if(error instanceof DataInvalidaException) {
                 this._mensagem.texto = error.message;
             }else{
@@ -34,7 +30,6 @@ class NegociacaoController {
     
     _criaNegociacao(){
         return new Negociacao(
-
             DateConverter.paraData(this._inputData.value),
             parseInt(this._inputQuantidade.value),
             parseFloat(this._inputValor.value),
@@ -54,13 +49,13 @@ class NegociacaoController {
     }
 
     importaNegociacoes(){
-        
-       this._negociacaoService.obterNegociacoesDaSemana((error, negociacoes) => {
-            if(error){
-                this._mensagem.texto = error;
-            }
-            negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
-            this._mensagem.texto ='Negociacões importadas com sucesso!'; 
-        });       
+        this._negociacaoService.obterNegociacoesDoPeriodo()
+            .then(
+                negociacioes => {
+                    negociacioes.filter(novaNegociacao => !this._negociacoes.paraArray().some(negociacaoExistente => novaNegociacao.equals(negociacaoExistente)))
+                                .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+                    this._mensagem.texto ='Negociacões importadas com sucesso!';
+                }
+            ).catch( error => this._mensagem.texto = error );
     }
 }
