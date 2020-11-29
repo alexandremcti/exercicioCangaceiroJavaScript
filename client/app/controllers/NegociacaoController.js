@@ -8,14 +8,25 @@ class NegociacaoController {
         this._negociacoes = new Bind(new Negociacoes(), new NegociacoesView('#negociacoes'), 'adiciona', 'esvazia');
         this._mensagem = new Bind(new Mensagem(), new MensagemView('#mensagemView'), 'texto');
         this._negociacaoService = new NegociacaoService();
+        this._init()
     }
 
     adiciona(event) {
         try {
             event.preventDefault();
-            this._negociacoes.adiciona(this._criaNegociacao());
-            this._mensagem.texto = 'Negociação adicionada com sucesso';
-            this._limpaFormulario();
+
+            const negociacao = this._criaNegociacao();
+
+            
+            getNegociacaoDao()
+                .then(dao => dao.adiciona(negociacao))
+                .then(() => {
+                    this._negociacoes.adiciona(negociacao);
+                    this._mensagem.texto = 'Negociação adicionada com sucesso';
+                    this._limpaFormulario();
+                }
+            );
+
         } catch (error) {
             console.log(error);
             console.log(error.stack);
@@ -44,8 +55,14 @@ class NegociacaoController {
     }
 
     apaga() {
-        this._negociacoes.esvazia();
-        this._mensagem.texto = 'Negociacoes apagadas com sucesso';
+
+        getNegociacaoDao()
+            .then(dao => dao.apagaTodos())
+            .then(() => {
+                this._negociacoes.esvazia();
+                this._mensagem.texto = 'Negociacoes apagadas com sucesso';
+            })
+            .catch(err => this._mensagem.texto = err );
     }
 
     importaNegociacoes(){
@@ -57,5 +74,15 @@ class NegociacaoController {
                     this._mensagem.texto ='Negociacões importadas com sucesso!';
                 }
             ).catch( error => this._mensagem.texto = error );
+    }
+
+    _init(){
+        
+        getNegociacaoDao()
+            .then(dao => dao.listaTodos())
+            .then(negociacoes => 
+                negociacoes.forEach(negociacao => 
+                    this._negociacoes.adiciona(negociacao)))
+            .catch(err => this._mensagem.texto = err);
     }
 }
