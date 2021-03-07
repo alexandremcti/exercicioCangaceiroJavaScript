@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Negociações</title>
+<link href="styles.css?338121b74495b1b587ec" rel="stylesheet"></head>
+<body class="container">
+    <h1 class="text-center">Negociações</h1>
+
+    <div id="mensagemView"></div>
+
+    <form class="form">
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="text" id="data" class="form-control" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="quantidade">Quantidade</label>
+            <input type="number" id="quantidade" class="form-control" min="1" step="1" value="1" required>
+        </div>
+        <div class="form-group">
+            <label for="valor">Valor</label>
+            <input type="number" id="valor" class="form-control" required min="0.01" step="0.01" value="0.0">
+        </div>
+
+        <button class="btn btn-primary text-center" type="submit">Incluir</button>
+        <button class="btn btn-primary text-center" type="button" id="botao-apaga">apagar</button>
+        <button class="btn btn-primary text-center" type="button" id="botao-importa">importar</button>
+    </form>
+    <br>
+    <div id="negociacoes"></div>
+<script type="text/javascript" src="vendor.bundle.js?338121b74495b1b587ec"></script><script type="text/javascript" src="bundle.js?338121b74495b1b587ec"></script></body>
+</html>
